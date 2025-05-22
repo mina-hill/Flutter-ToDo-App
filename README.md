@@ -11,8 +11,9 @@ A simple and clean To-Do application built with Flutter. This app allows users t
 
 ## Screenshots
 
-<!-- Add screenshots here if available, for example: -->
-<!-- ![Screenshot1](screenshots/screen1.png) -->
+![To-Do App Screenshot](assets/ss1.png)
+![To-Do App Screenshot](assets/ss2.png)
+![To-Do App Screenshot](assets/ss3.png)
 
 ## Getting Started
 
