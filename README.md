@@ -6,9 +6,9 @@ Add tasks, view them in a live-updating list, and see the whole thing rebuild re
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.6%2B-02569B?style=flat-square&logo=flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-3.6-0175C2?style=flat-square&logo=dart&logoColor=white)
-![State Management](https://img.shields.io/badge/State%20Management-Provider-2a78d6?style=flat-square)
-![Architecture](https://img.shields.io/badge/Architecture-MVVM-1baf7a?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-eda100?style=flat-square)
+![State Management](https://img.shields.io/badge/State%20Management-Provider-4C72B0?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-MVVM-4C9F8A?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-C9A227?style=flat-square)
 
 ---
 
@@ -54,9 +54,9 @@ flowchart LR
     TLS -- "reads tasks" --> TVM
     TLS -- "navigates to" --> ATS
 
-    classDef view fill:#2a78d6,stroke:#184f95,stroke-width:2px,color:#ffffff
-    classDef viewmodel fill:#eda100,stroke:#8a6200,stroke-width:2px,color:#ffffff
-    classDef model fill:#1baf7a,stroke:#0f7a52,stroke-width:2px,color:#ffffff
+    classDef view fill:#4C72B0,stroke:#2E4670,stroke-width:2px,color:#ffffff
+    classDef viewmodel fill:#C9A227,stroke:#7A6418,stroke-width:2px,color:#ffffff
+    classDef model fill:#4C9F8A,stroke:#2F6455,stroke-width:2px,color:#ffffff
 
     class TLS,ATS view
     class TVM viewmodel
