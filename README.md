@@ -1,19 +1,85 @@
-# Flutter ToDo App
+# Flutter To-Do App
 
-A simple and clean To-Do application built with Flutter. This app allows users to add, view, and manage their daily tasks efficiently.
+**A clean, MVVM-structured To-Do list app for Flutter, powered by `provider`.**
 
-## Features
+Add tasks, view them in a live-updating list, and see the whole thing rebuild reactively the moment state changes — no manual `setState` plumbing required.
 
-- Add new tasks with a title and description
-- View a list of all tasks
-- Simple and intuitive UI using Flutter's Material Design
-- State management with Provider
+![Flutter](https://img.shields.io/badge/Flutter-3.6%2B-02569B?style=flat-square&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-3.6-0175C2?style=flat-square&logo=dart&logoColor=white)
+![State Management](https://img.shields.io/badge/State%20Management-Provider-2a78d6?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-MVVM-1baf7a?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-eda100?style=flat-square)
+
+---
 
 ## Screenshots
 
 ![To-Do App Screenshot](assets/ss1.png)
 ![To-Do App Screenshot](assets/ss2.png)
 ![To-Do App Screenshot](assets/ss3.png)
+
+The empty task list, the add-task form, and a populated list after two tasks have been added — all sharing the same soft lavender Material theme (`ThemeData(primarySwatch: Colors.brown)` tinted through `ColorScheme`) and a single floating action button for adding new tasks.
+
+## Project at a Glance
+
+The whole app is intentionally small: four `lib/` files plus the entry point, split cleanly across MVVM layers.
+
+![Lines of code by layer](docs/charts/loc-by-layer.png)
+
+## Architecture — MVVM Data Flow
+
+State flows one way down (View → ViewModel → Model) and one way back up via `ChangeNotifier.notifyListeners()`, which `Consumer<TaskViewModel>` picks up to rebuild only the widgets that need it.
+
+```mermaid
+flowchart LR
+    subgraph Views
+        TLS["TaskListScreen<br/>(Consumer&lt;TaskViewModel&gt;)"]
+        ATS["AddTaskScreen<br/>(TextEditingControllers)"]
+    end
+
+    subgraph ViewModel
+        TVM["TaskViewModel<br/>(ChangeNotifier)"]
+    end
+
+    subgraph Model
+        TASK["Task<br/>(title, description)"]
+    end
+
+    ATS -- "addTask(title, description)" --> TVM
+    TVM -- "creates" --> TASK
+    TVM -- "notifyListeners()" --> TLS
+    TLS -- "reads tasks" --> TVM
+    TLS -- "navigates to" --> ATS
+
+    classDef view fill:#2a78d61a,stroke:#2a78d6,stroke-width:2px,color:#0b0b0b
+    classDef viewmodel fill:#eda1001a,stroke:#eda100,stroke-width:2px,color:#0b0b0b
+    classDef model fill:#1baf7a1a,stroke:#1baf7a,stroke-width:2px,color:#0b0b0b
+
+    class TLS,ATS view
+    class TVM viewmodel
+    class TASK model
+```
+
+## Features
+
+| Feature | Description |
+|---|---|
+| Add tasks | `AddTaskScreen` collects a title and description via `TextEditingController`s and validates both are non-empty before submitting |
+| View tasks | `TaskListScreen` renders all tasks in a `ListView.builder`, or a friendly "No tasks added yet" empty state |
+| Reactive state management | `TaskViewModel` extends `ChangeNotifier`; adding a task calls `notifyListeners()` so the UI rebuilds automatically via `provider`'s `Consumer` |
+| Input validation | Empty title/description is rejected client-side, with a `SnackBar` prompting the user to fill in all fields |
+| MVVM separation | Models, view models, and views live in dedicated folders, keeping UI code free of business logic |
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Flutter (SDK `^3.6.1`) |
+| Language | Dart |
+| State Management | [provider](https://pub.dev/packages/provider) `^6.1.2` |
+| Architecture | MVVM (Model–View–ViewModel) |
+| Icons | Material Icons / `cupertino_icons` |
+| Linting | `flutter_lints` `^5.0.0` |
 
 ## Getting Started
 
@@ -37,10 +103,17 @@ To run this project locally:
 
 ## Project Structure
 
-- `lib/main.dart` - Application entry point
-- `lib/models/` - Data models (e.g., `Task`)
-- `lib/viewmodels/` - State management with Provider (`TaskViewModel`)
-- `lib/views/` - UI screens (`TaskListScreen`, `AddTaskScreen`)
+```
+lib/
+├── main.dart                       # App entry point, theme, and Provider setup
+├── models/
+│   └── task.dart                   # Task model (title, description)
+├── viewmodels/
+│   └── task_viewmodel.dart         # TaskViewModel — ChangeNotifier holding task list
+└── views/
+    ├── task_list_screen.dart       # Displays all tasks via Consumer<TaskViewModel>
+    └── add_task_screen.dart        # Form for creating a new task
+```
 
 ## Dependencies
 
