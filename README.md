@@ -24,7 +24,10 @@ The empty task list, the add-task form, and a populated list after two tasks hav
 
 The whole app is intentionally small: four `lib/` files plus the entry point, split cleanly across MVVM layers.
 
-![Lines of code by layer](docs/charts/loc-by-layer.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/loc-by-layer-dark.png">
+  <img src="docs/charts/loc-by-layer.png" alt="Lines of code by layer: App Shell 212, Views 89, ViewModel 15, Model 8" width="600" />
+</picture>
 
 ## Architecture — MVVM Data Flow
 
@@ -51,9 +54,9 @@ flowchart LR
     TLS -- "reads tasks" --> TVM
     TLS -- "navigates to" --> ATS
 
-    classDef view fill:#2a78d61a,stroke:#2a78d6,stroke-width:2px,color:#0b0b0b
-    classDef viewmodel fill:#eda1001a,stroke:#eda100,stroke-width:2px,color:#0b0b0b
-    classDef model fill:#1baf7a1a,stroke:#1baf7a,stroke-width:2px,color:#0b0b0b
+    classDef view fill:#2a78d6,stroke:#184f95,stroke-width:2px,color:#ffffff
+    classDef viewmodel fill:#eda100,stroke:#8a6200,stroke-width:2px,color:#ffffff
+    classDef model fill:#1baf7a,stroke:#0f7a52,stroke-width:2px,color:#ffffff
 
     class TLS,ATS view
     class TVM viewmodel
